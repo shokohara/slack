@@ -11,6 +11,7 @@ import           Data.Monoid            ((<>))
 import           Network.HTTP.Types.URI (parseQuery)
 import qualified Network.Slack.Api      as Slack
 import           Options.Applicative
+import           Data.String (fromString)
 
 data Options = Options
   { token    :: String
@@ -40,6 +41,6 @@ main =
           (fullDesc <> progDesc "Probe the Slack API" <>
            header "slack-generic-client")
   in do Options {..} <- execParser opts
-        r <- Slack.request token endpoint params
+        r <- Slack.request (fromString token) endpoint params
         print r
         putStrLn "Done"
